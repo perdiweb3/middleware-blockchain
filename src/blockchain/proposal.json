@@ -1,0 +1,51 @@
+{
+  "proposals": [
+    {
+      "proposalId": 0,
+      "title": "CERO",
+      "description": "cero",
+      "quantityVotesOptions": 1,
+      "optionsVotes": [
+        0,
+        0
+      ],
+      "optionsCode": [
+        "A",
+        "B"
+      ],
+      "voters": [],
+      "executed": false,
+      "optionsNumber": 2
+    },
+    {
+      "proposalId": 1,
+      "title": "UNO",
+      "description": "uno",
+      "quantityVotesOptions": 1,
+      "optionsVotes": [
+        0,
+        0
+      ],
+      "optionsCode": [
+        "A",
+        "B"
+      ],
+      "voters": [],
+      "executed": false,
+      "optionsNumber": 2
+    },
+    {
+      "title": "DOS",
+      "description": "dos",
+      "quantityVotesOptions": 1,
+      "optionsCode": [
+        "X",
+        "Y",
+        "Z"
+      ],
+      "proposalId": "ec932027-5ec7-49bb-a42d-0335ea34a562",
+      "voters": [],
+      "executed": false
+    }
+  ]
+}
