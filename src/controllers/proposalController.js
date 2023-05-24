@@ -40,4 +40,10 @@ const deleteProposal = (req, res) => {
     res.send(`Delete Proposal: ${req.params.propId}`);
 }
 
-module.exports = {getAllProposals,getProposal,createProposal,updateProposal,deleteProposal};
+//Blockchain
+const getProposalFromBlockchain = async  (req,res) => {
+    const proposal = await proposalService.getProposalFromBlockchain(req.params.propId);
+    res.status(200).send({status:"OK", data: proposal});
+}
+
+module.exports = {getAllProposals,getProposal,createProposal,updateProposal,deleteProposal, getProposalFromBlockchain};

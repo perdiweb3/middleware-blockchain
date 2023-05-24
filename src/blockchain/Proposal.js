@@ -3,7 +3,6 @@ const data = require("./proposal.json");
 
 const { saveToJSON } = require("./utils.js");
 
-//Implementar llamadas a blockchain
 const getAllProposals = () => {
     return data.proposals;
 }
@@ -19,4 +18,20 @@ const createNewProposal = (newProposal) => {
     return newProposal;
 };
 
-module.exports = {getAllProposals, createNewProposal};
+//Implementar llamadas a blockchain
+const {ethers} = require("ethers");
+const { DAOAddress, DAOABI, getAlchemyProvider } = require("./contracts.js");
+
+const getProposalFromBlockchain = async (proposalId) => {
+    const DaoContract = new ethers.Contract(DAOAddress, DAOABI, await getAlchemyProvider());
+    const proposal = await DaoContract.getProposal(proposalId);
+    return proposal;
+}
+
+const isProposalActiveFromBlockchain = async (proposalId) => {
+    const DaoContract = new ethers.Contract(DAOAddress, DAOABI, await getAlchemyProvider());
+    const isActive = await DaoContract.isProposalActive(proposalId);
+    return isActive;
+}
+
+module.exports = {getAllProposals, createNewProposal, getProposalFromBlockchain, isProposalActiveFromBlockchain};
