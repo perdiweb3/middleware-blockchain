@@ -20,7 +20,7 @@ const createNewProposal = (newProposal) => {
 
 //Implementar llamadas a blockchain
 const {ethers} = require("ethers");
-const { DAOAddress, DAOABI, getAlchemyProvider } = require("./contracts.js");
+const { DAOAddress, DAOABI, PRIVATE_KEY, getAlchemyProvider } = require("./contracts.js");
 
 const getProposalFromBlockchain = async (proposalId) => {
     const DaoContract = new ethers.Contract(DAOAddress, DAOABI, await getAlchemyProvider());
@@ -34,4 +34,33 @@ const isProposalActiveFromBlockchain = async (proposalId) => {
     return isActive;
 }
 
-module.exports = {getAllProposals, createNewProposal, getProposalFromBlockchain, isProposalActiveFromBlockchain};
+const createProposalInBlockchain = async (newProposal) => {
+    try{
+        const provider = await getAlchemyProvider();
+        const DaoContract = new ethers.Contract(DAOAddress,DAOABI, provider);
+        const wallet = new ethers.Wallet(PRIVATE_KEY,provider);
+        const DaoContractWallet = DaoContract.connect(wallet);
+
+        const tx = await DaoContractWallet.createProposal(newProposal.title, 
+                                                    newProposal.description, 
+                                                    newProposal.quantityVotesOptions, 
+                                                    newProposal.optionsCode, 
+                                                    newProposal.deadline);
+
+        // await tx.wait();    
+        console.log(tx);
+        return true;                
+    }catch(e){
+        console.error(e);
+        return false;
+    }                    
+}
+
+
+module.exports = {
+    getAllProposals, 
+    createNewProposal, 
+    getProposalFromBlockchain, 
+    isProposalActiveFromBlockchain,
+    createProposalInBlockchain
+};

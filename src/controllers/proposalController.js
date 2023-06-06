@@ -46,4 +46,32 @@ const getProposalFromBlockchain = async  (req,res) => {
     res.status(200).send({status:"OK", data: proposal});
 }
 
-module.exports = {getAllProposals,getProposal,createProposal,updateProposal,deleteProposal, getProposalFromBlockchain};
+const createProposalInBlockchain = async (req, res) => {
+    console.log("createProposalInBlockchain");
+    
+    const body = req.body;
+    console.log(body);
+    const newProposal = {
+        title: body.title,
+        description: body.description,
+        quantityVotesOptions: body.quantityVotesOptions,
+        optionsCode: body.optionsCode,
+        deadline: body.deadline,
+    }
+    const createdProposal = await proposalService.createProposalInBlockchainService(newProposal);
+    if(createdProposal){
+        res.status(201).send({status:"OK", data:createdProposal});
+    }else{
+        res.status(500).send({status:"FAIL", data:createdProposal});
+    }
+}
+
+module.exports = {
+    getAllProposals,
+    getProposal,
+    createProposal,
+    updateProposal,
+    deleteProposal, 
+    getProposalFromBlockchain, 
+    createProposalInBlockchain
+};

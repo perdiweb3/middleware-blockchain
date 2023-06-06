@@ -33,9 +33,16 @@ const deleteProposal = (req, res) => {
 
 //Blockchain
 const getProposalFromBlockchain = async (proposalId) => {
-    const proposal = Proposal.getProposalFromBlockchain(proposalId);
+    console.log("getProposalFromBlockchain");
+    const proposal = await Proposal.getProposalFromBlockchain(proposalId);
     // const proposal = await Proposal.isProposalActiveFromBlockchain(proposalId);
     return proposal;
 }
 
-module.exports = {getAllProposals, getProposal, createProposal, updateProposal, deleteProposal, getProposalFromBlockchain};
+const createProposalInBlockchainService = async (newProposal) => {
+    console.log("createProposalInBlockchain");
+    const createdProposalCorrect = await Proposal.createProposalInBlockchain(newProposal);
+    return createdProposalCorrect;
+}
+
+module.exports = {getAllProposals, getProposal, createProposal, updateProposal, deleteProposal, getProposalFromBlockchain, createProposalInBlockchainService};
